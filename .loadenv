@@ -1,0 +1,18 @@
+export MIHOST=$(hostname -s)
+
+case $MIHOST in
+terra)
+  export GISDATA=/opt/gisdata
+  export GISDB=/opt/gisdb
+  export GISOUT=/opt/gisout
+  ;;
+roraima)
+  export GISDATA=$HOME/gisdata
+  export GISDB=$HOME/gisdb
+  export GISOUT=$HOME/gisout
+  ;;
+esac
+
+export SCRIPTDIR=$HOME/proyectos/IVIC/GS-remote-sensing
+export WORKDIR=$HOME/tmp/GS-remote-sensing
+mkdir -p $WORKDIR
