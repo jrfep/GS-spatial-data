@@ -32,11 +32,11 @@ Para la Gran Sabana (bbox/: -63.1 4.6 -60.5 6.6) nos enfocamos en `10N_070W` y s
 ```sh
 export VRS=GFC-2019-v1.7
 cd $WORKDIR
-mkdir -p $WORKDIR/input/$VRS
+mkdir -p $WORKDIR/$VRS
 for VAR in gain lossyear treecover2000
 do
   ## use -co "COMPRESS=LZW" for highest compression lossless ration
-  gdalwarp -te -63.1 4.6 -60.5 6.6 -co "COMPRESS=LZW" $GISDATA/sensores/Landsat/$VRS/Hansen_${VRS}_${VAR}_10N_070W.tif $WORKDIR/input/$VRS/Hansen_${VRS}_${VAR}.tif
+  gdalwarp -te -63.1 4.6 -60.5 6.6 -co "COMPRESS=LZW" $GISDATA/sensores/Landsat/$VRS/Hansen_${VRS}_${VAR}_10N_070W.tif $WORKDIR/$VRS/Hansen_${VRS}_${VAR}.tif
 done
 
 ```

@@ -35,6 +35,9 @@ done
 
 ```
 
+
+Para la Gran Sabana (bbox/: -63.1 4.6 -60.5 6.6):
+
 ```sh
 mkdir -p $WORKDIR/input/nightlights
 cd $WORKDIR/input/nightlights
