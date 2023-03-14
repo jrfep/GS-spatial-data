@@ -112,13 +112,13 @@ digraph G {
 		CT -> CTK -> CTE
 		{CTW;CTK} -> PA
 		TRACK -> {TRACKW;TRACKK} -> EFF
-		{TRACKW;TRACKK} -> {INOBS, OBS} -> PR
+		{TRACKW;TRACKK} -> {INOBS; OBS} -> PR
 		{CH; DRIV; DCON; PFST} -> OCCU
 		{PA; HT} -> IV
 		{PA; PR; DDFR; DFIRE; PFST; DCON; DCOM }-> SVOC
 		INT -> INTW ->  {PR; HUNT; CONU}
 		INT -> INTK ->  PR
-		EFF,CTE -> SVOC
+		{EFF;CTE} -> SVOC
 		OCCU -> ABUN
 		{ABUN; HUNT; PFST; DRIV; DCON} -> HF
 		HUNT -> HP
