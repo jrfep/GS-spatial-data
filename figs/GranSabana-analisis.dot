@@ -1,0 +1,127 @@
+digraph G {
+	concentrate=true;
+	##rankdir=LR;
+    layout=dot;
+	//newrank=true; // rank without respect to cluster
+    rankdir="TD"; 
+	//subgraph cluster_analysis
+	{
+		node [shape=box color="#EAC2C5" style="filled"]
+		subgraph cluster_St2021 {
+			label="Stachowicz et al. 2021" labelloc = "bottom"
+			OCCU [label="Occupancy model"]
+			HF [label="Linear models / t-test"]
+			HP [label="Hunting preference"]
+			ABUN [label="Species\nabundance" shape=ellipse,width=1.5,fixedsize=true,style="dashed"]
+		}
+		subgraph cluster_St2020 {
+			label="Stachowicz et al. 2020" labelloc = "bottom"
+			HT [label="Habitat type classification"]
+			IV [label="Indicator value analysis"]	
+		}
+		subgraph cluster_StMS1 {
+			label="Stachowicz et al. In prep." labelloc = "bottom"
+			SVOC [label="Single visit occupancy model\n(in prep.)"]
+		}
+		subgraph cluster_StMS2 {
+			label="Stachowicz et al. In prep." labelloc = "bottom"
+			TREND [label="Temporal trends\n(in prep.)"]
+		}
+		//IV -> {OCCU;HF;HP} -> {SVOC;TREND} [style = invis] // set node order in cluster
+	}
+
+    subgraph cluster_spatial {
+		node [shape=box color="#AEF275" style="filled"]
+		RS [label="Remote sensing data\n(2000-2021)"]
+		MODIS
+		LANDSAT
+		NDVI [label="NDVI timeseries"]
+		DFOR [label="Deforestation events"]
+		FRST [label="Tree cover"]
+		FIRE [label="Fire events"]
+		
+		GIS 
+		RIVER [label="Rivers"]
+		COMU [label="Pemon communities"]
+	}
+
+	
+	subgraph cluster_interviews {
+		node [shape=box color="#DAEAF2" style="filled"]
+		INT [label="Interviews\nin Pemon comunities"]
+		INTW [label="Warapata\n(2015)"]
+		INTK [label="Kavanayen\n(2018)"]
+		HUNT [label="hunting"]
+		CONU [label="conucos"]
+	}
+	
+	
+
+    subgraph cluster_fieldwork {
+		node [shape=circle style="filled" width=1.3 fixedsize=true color="#DFDAD2"];
+		SD [label="Sampling\ndesign\n2014"]
+		subgraph cluster_obs {
+			node [shape=box color="#52AEF7" style="filled"]
+			TRACK [label="Georef\nWalking Track"]
+			TRACKW [label="Warapata\n(2015)"]
+			TRACKK [label="Kavanayen\n(2018)"]
+			PR [label="detection record"]
+			OBS [label="direct observations"] 
+			INOBS [label="tracks, indirect obs."] 
+			EFF [label="sampling effort"]
+		}
+		subgraph cluster_camera {
+			
+			node [shape=box color="#EFDAA2" style="filled"]
+			CT [label="Camera Trap"]
+			CTW [label="Warapata\n(2015)"]
+			CTK [label="Kavanayen\n(2018)"]
+			CH [label="capture history"]
+			PA [label="detection record"]
+			CTE [label="sampling effort"]
+		}
+		//	SD -> {TRACK -> CT [style = invis]} [style = invis] // set node order in cluster
+		SD -> {TRACK -> CT [style = invis]}  [style="solid" color="#DFDAD2"]
+		
+    }
+	subgraph cluster_covars {
+		label="spatial covariates"
+		node [shape=circle style="dashed"]
+		DRIV [label="dist.\nrivers"]
+		PFST  [label="prop.\nforest"]
+		DDFR [label="dist.\nforest\nloss"]
+		DFIRE [label="dist.\nfire\nevent"]
+		DCOM [label="dist.\ncomm."]
+		DCON [label="dist.\nconuco"]
+	}
+	{	
+		MODIS -> {NDVI; FIRE}
+		GIS -> {RIVER; COMU}
+		RS -> {MODIS;LANDSAT}
+		NDVI -> HT
+		LANDSAT -> {DFOR;FRST}
+		{NDVI;FIRE;FRST} -> SD [style="solid" color="#DFDAD2"]
+		RIVER -> DRIV
+		CONU  -> DCON
+		FIRE  -> DFIRE
+		FRST-> PFST
+		DFOR -> DDFR
+		COMU  -> DCOM
+		CT -> CTW -> CH 
+		CTW -> CTE
+		CT -> CTK -> CTE
+		{CTW;CTK} -> PA
+		TRACK -> {TRACKW;TRACKK} -> EFF
+		{TRACKW;TRACKK} -> {INOBS; OBS} -> PR
+		{CH; DRIV; DCON; PFST} -> OCCU
+		{PA; HT} -> IV
+		{PA; PR; DDFR; DFIRE; PFST; DCON; DCOM }-> SVOC
+		INT -> INTW ->  {PR; HUNT; CONU}
+		INT -> INTK ->  PR
+		{EFF;CTE} -> SVOC
+		OCCU -> ABUN
+		{ABUN; HUNT; PFST; DRIV; DCON} -> HF
+		HUNT -> HP
+		{FIRE;DFOR} -> TREND 
+	}
+}
