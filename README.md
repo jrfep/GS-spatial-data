@@ -1,4 +1,15 @@
+# 
+
+## Repositories and version control
+
+
+
+## Documentation
+
+This dataset is documented in a Data in Brief manuscript
+
 # GS-remote-sensing
+
 Summary of landscape changes in Gran Sabana using remote sensing
 
 ## load environment
